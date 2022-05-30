@@ -1,0 +1,1 @@
+This is a project for automatising the process of subscription payment for timisoarascout
