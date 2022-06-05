@@ -1,3 +1,3 @@
 gspread
 argparse
-oauth2clientq
+oauth2client
