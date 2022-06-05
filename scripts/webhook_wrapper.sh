@@ -33,7 +33,7 @@ function catch_params() {
 }
 
 function build_call() {
-    log "Running python3 subscription_precessor.py
+    log "Running python3 ${python_script_path} \
         --key-file ${key_file_path} \
         --file-name ${file_name} \
         --id-oncr ${id} \
@@ -42,7 +42,7 @@ function build_call() {
         --pay-for ${pay} \
         --update_cotizatie"
 
-    python3 subscription_precessor.py \
+    python3 ${python_script_path} \
         --key-file ${key_file_path} \
         --file-name ${file_name} \
         --id-oncr ${id} \
