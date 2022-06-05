@@ -12,12 +12,12 @@ function script_init() {
     logpath="./log.txt"
 
     # CALL PARAMS
-    key_file_path="./client_key.json" # TbD change to absolute path
+    key_file_path="/home/borsu/Documents/cotizatii/Cotizatii/client_key.json"
     file_name="Cotizatii_automat"
 
     # SCIPT PARAMS
-    python_script_path="./subscription_precessor.py" # TbD change to absolute path
-    python_virtualenv_path="./virtualenv" # TbD change to absolute path
+    python_script_path="/home/borsu/Documents/cotizatii/Cotizatii/subscription_precessor.py"
+    python_virtualenv_path="/home/borsu/Documents/cotizatii/Cotizatii/virtualenv"
 
     source "${python_virtualenv_path}/bin/activate"
 
