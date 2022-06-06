@@ -1,6 +1,7 @@
 import gspread
 import pprint
 import argparse
+import re
 
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -67,6 +68,11 @@ def fetch_sheet(client, file_name):
     print("FETCHED!")
     return sheet
 
+def normalise_id(id):
+    id = id.lower()
+    id = re.sub(' +', '', id)
+    return id
+
 def get_members_ids(sheet):
     python_sheet = sheet.get_all_records()
     return [a_dict["id ONCR"] for a_dict in python_sheet]
@@ -100,6 +106,8 @@ def handle_entry(sheet, id, surname, given_name, pay_for):
     if id is None:
         print("cannot update with id-oncr field empty")
         return
+    else:
+        id = normalise_id(id)
 
     if not pay_for:
         print("cannot update without paying info")
