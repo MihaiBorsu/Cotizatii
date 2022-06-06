@@ -18,8 +18,10 @@ function script_init() {
     # SCIPT PARAMS
     python_script_path="/home/borsu/Documents/cotizatii/Cotizatii/subscription_precessor.py"
     python_virtualenv_path="/home/borsu/Documents/cotizatii/Cotizatii/virtualenv"
+    python_requirements_path="/home/borsu/Documents/cotizatii/Cotizatii/requirements.txt"
 
     source "${python_virtualenv_path}/bin/activate"
+    pip3 install -r ${python_requirements_path}
 
     log " "
     log "Script has been initialised at $(date)"
