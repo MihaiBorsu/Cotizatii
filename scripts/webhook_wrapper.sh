@@ -30,6 +30,7 @@ function catch_params() {
     [[ -z $surname ]] && log "Cannot run withoud surname" && exit 1
     [[ -z $given ]] && log "Cannot run withoud given_name" && exit 1
     [[ -z $pay ]] && log "Cannot run withoud pay_for" && exit 1
+    pay=$(sed 's/,/\ /g' <<< $pay)
 }
 
 function build_call() {
