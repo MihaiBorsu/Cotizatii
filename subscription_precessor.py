@@ -37,10 +37,10 @@ def get_args():
     data_group = parser.add_argument_group(title="Data group")
     data_group.add_argument("-i", "--id-oncr", dest="id_oncr", default=None,
                               help="This is the unique id for each member")
-    data_group.add_argument("-n", "--surname", dest="surname", default=None,
-                              help="This is the surname for each member")
-    data_group.add_argument("-g", "--given-name", dest="given_name", default=None,
-                              help="This is the given name for each member")
+    data_group.add_argument("-n", "--surname", dest="surname", default=[],
+                              help="This is the surname for each member", nargs="+")
+    data_group.add_argument("-g", "--given-name", dest="given_name", default=[],
+                              help="This is the given name for each member", nargs="+")
     data_group.add_argument("-p", "--pay-for", dest="pay_for", default=[],
                               help="This is the given name for each member", nargs="+")
 
@@ -70,8 +70,13 @@ def fetch_sheet(client, file_name):
 
 def normalise_id(id):
     id = id.lower()
-    id = re.sub(' +', '', id)
-    return id
+    return re.sub(' +', '', id)
+
+def normalise_surname(surname):
+    return " ".join(map(str, surname))
+
+def normalise_given_name(given_name):
+    return " ".join(map(str, given_name))
 
 def get_members_ids(sheet):
     python_sheet = sheet.get_all_records()
@@ -112,6 +117,9 @@ def handle_entry(sheet, id, surname, given_name, pay_for):
     if not pay_for:
         print("cannot update without paying info")
         return
+
+    surname = normalise_surname(surname)
+    given_name = normalise_given_name(given_name)
 
     if id not in get_members_ids(sheet):
         create_new_entry(sheet, id, surname, given_name)
