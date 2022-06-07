@@ -9,10 +9,11 @@ function script_init() {
     script_path="${BASH_SOURCE[0]}"
     script_dir="$(dirname "$script_path")"
     script_name="$(basename "$script_path")"
-    logpath="./log.txt"
+    logpath="/home/borsu/Documents/cotizatii/log.txt"
 
     # CALL PARAMS
     key_file_path="/home/borsu/Documents/cotizatii/Cotizatii/client_key.json"
+    source_key_path="/home/borsu/Documents/cotizatii/Cotizatii/source_key.json"
     file_name="Cotizatii_automat"
 
     # SCIPT PARAMS
@@ -26,10 +27,14 @@ function script_init() {
 }
 
 function catch_params() {
+    [[ -z $key ]] && log "Cannot run withoud id" && exit 1
     [[ -z $id ]] && log "Cannot run withoud id" && exit 1
     [[ -z $surname ]] && log "Cannot run withoud surname" && exit 1
     [[ -z $given ]] && log "Cannot run withoud given_name" && exit 1
     [[ -z $pay ]] && log "Cannot run withoud pay_for" && exit 1
+
+    [[ $key != $(jq -r .key ${source_key_path}) ]] && log "Bad key! Only 123 from buider must be able to run this webhook." && exit 1
+
     pay=$(sed 's/,/\ /g' <<< $pay)
 }
 
